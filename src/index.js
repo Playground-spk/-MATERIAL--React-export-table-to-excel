@@ -12,13 +12,21 @@ import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import PageReducer from "./store/reducer/PageReducer";
 import userReducer from "./store/reducer/userReducer";
+import { loadState, saveState } from "./store/service/storeService";
 
 const rootReducer = combineReducers({
   page: PageReducer,
   user: userReducer,
 });
+const persisState = loadState();
 
-const store = createStore(rootReducer);
+export const store = createStore(rootReducer, persisState);
+
+console.log(store.getState().user.role);
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 React.icons = icons;
 

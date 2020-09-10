@@ -1,3 +1,5 @@
+import { store } from "../..";
+
 const { storeRageKey } = require("./localStoreRageItem");
 
 const saveState = (state) => {
@@ -14,4 +16,8 @@ const loadState = () => {
   }
 };
 
-export { saveState, loadState };
+const getRoleUser = () => {
+  return store.getState().user.role;
+};
+
+export { saveState, loadState, getRoleUser };

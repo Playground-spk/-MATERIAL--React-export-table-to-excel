@@ -1,13 +1,15 @@
+import { actionType } from "../action";
+
 const initialState = {
-  status: "guest",
+  role: "guest",
   userInfo: {},
   token: "",
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "login":
-      break;
+    case actionType.LOGIN:
+      return { ...state, role: action.value };
 
     default:
       return state;

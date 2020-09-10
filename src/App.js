@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 import { allowRoute } from "./config/role";
+import { connect } from "react-redux";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -9,12 +10,12 @@ const loading = (
   </div>
 );
 
-function App() {
+function App(props) {
   return (
     <HashRouter>
       <React.Suspense fallback={loading}>
         <Switch>
-          {allowRoute["member"].allow.map((route) => {
+          {allowRoute[props.role].allow.map((route) => {
             return (
               <Route
                 exact
@@ -30,7 +31,13 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    role: state.user.role,
+  };
+};
+
+export default connect(mapStateToProps, null)(App);
 
 // class App extends Component {
 //   render() {

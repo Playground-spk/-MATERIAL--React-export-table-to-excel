@@ -19,7 +19,7 @@ import navigation from "./_nav";
 
 const TheSidebar = () => {
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.sidebarShow);
+  const show = useSelector((state) => state.page.sidebarShow);
 
   return (
     <CSidebar
@@ -27,16 +27,7 @@ const TheSidebar = () => {
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
-          className="c-sidebar-brand-full"
-          name="logo-negative"
-          height={35}
-        />
-        <CIcon
-          className="c-sidebar-brand-minimized"
-          name="sygnet"
-          height={35}
-        />
+        {/* used to icon */}
       </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement
@@ -55,3 +46,17 @@ const TheSidebar = () => {
 };
 
 export default React.memo(TheSidebar);
+
+//icon
+{
+  /* <CIcon
+className="c-sidebar-brand-full"
+name="logo-negative"
+height={35}
+/>
+<CIcon
+className="c-sidebar-brand-minimized"
+name="sygnet"
+height={35}
+/> */
+}
