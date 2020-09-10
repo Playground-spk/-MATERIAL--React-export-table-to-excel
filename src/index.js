@@ -9,7 +9,16 @@ import App from "./App";
 import { icons } from "./assets/icons";
 
 import { Provider } from "react-redux";
-import store from "./store";
+import { createStore, combineReducers } from "redux";
+import PageReducer from "./store/reducer/PageReducer";
+import userReducer from "./store/reducer/userReducer";
+
+const rootReducer = combineReducers({
+  page: PageReducer,
+  user: userReducer,
+});
+
+const store = createStore(rootReducer);
 
 React.icons = icons;
 
