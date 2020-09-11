@@ -1,13 +1,19 @@
 export default [
   {
     _tag: "CSidebarNavItem",
-    name: "Dashboard",
+    name: "Report",
     to: "/dashboard",
     icon: "cil-speedometer",
     badge: {
       color: "info",
-      text: "NEW",
+      //text: "NEW",
     },
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "access management",
+    to: "/theme/colors",
+    icon: "cil-applicationsSettings",
   },
 ];
 

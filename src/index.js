@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   page: PageReducer,
   user: userReducer,
 });
+
 const persisState = loadState();
 
 export const store = createStore(rootReducer, persisState);
