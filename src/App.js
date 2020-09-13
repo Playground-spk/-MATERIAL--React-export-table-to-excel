@@ -11,7 +11,6 @@ const loading = (
 );
 
 function App(props) {
-  console.log(props.role);
   return (
     <HashRouter>
       <React.Suspense fallback={loading}>

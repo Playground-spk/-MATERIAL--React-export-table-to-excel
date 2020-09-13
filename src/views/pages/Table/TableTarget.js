@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import {
   CBadge,
   CCard,
@@ -11,7 +10,9 @@ import {
   CPagination,
 } from "@coreui/react";
 
-import usersData from "./Usersdata";
+import usersData from "../../users/Usersdata";
+import { useHistory, useLocation } from "react-router-dom";
+import ExportToExcel from "../../../components/table/ExportToExcel";
 
 const getBadge = (status) => {
   switch (status) {
@@ -27,46 +28,44 @@ const getBadge = (status) => {
       return "primary";
   }
 };
+const fields = ["name", "registered", "role", "status"];
 
-const Users = () => {
+function TableTarget() {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
-  console.log(queryPage);
-  console.log(currentPage);
+  const [itemPerPage, setItemPerPage] = useState(10);
+  let pagesInPagination = usersData.length / itemPerPage;
 
   const pageChange = (newPage) => {
-    currentPage !== newPage && history.push(`/users?page=${newPage}`);
+    currentPage !== newPage && history.push(`/?page=${newPage}`);
   };
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
-
   return (
     <CRow>
-      <CCol xl={6}>
+      <CCol>
         <CCard>
           <CCardHeader>
-            Users
-            <small className="text-muted"> example</small>
+            <CRow>
+              <CCol></CCol>
+              <CCol>
+                <ExportToExcel csvData={usersData} fileName="userInfo" />
+              </CCol>
+            </CRow>
           </CCardHeader>
           <CCardBody>
             <CDataTable
               items={usersData}
-              fields={[
-                { key: "name", _classes: "font-weight-bold" },
-                "registered",
-                "role",
-                "status",
-              ]}
+              fields={fields}
               hover
               striped
-              itemsPerPage={5}
+              bordered
               activePage={page}
-              clickableRows
-              onRowClick={(item) => history.push(`/users/${item.id}`)}
+              itemsPerPage={itemPerPage}
               scopedSlots={{
                 status: (item) => (
                   <td>
@@ -77,8 +76,8 @@ const Users = () => {
             />
             <CPagination
               activePage={page}
+              pages={Math.ceil(pagesInPagination)}
               onActivePageChange={pageChange}
-              pages={5}
               doubleArrows={false}
               align="center"
             />
@@ -87,6 +86,6 @@ const Users = () => {
       </CCol>
     </CRow>
   );
-};
+}
 
-export default Users;
+export default TableTarget;

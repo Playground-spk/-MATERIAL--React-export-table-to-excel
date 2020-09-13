@@ -2,7 +2,7 @@ import { actionType } from "../action";
 import { storeRageKey } from "../service/localStoreRageItem";
 
 const initialState = {
-  role: "guest",
+  role: "member",
   userInfo: {},
   token: "",
 };
